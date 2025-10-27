@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f4c652",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        };
+    </script>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 bg-white/50 dark:bg-black/20 flex flex-col border-r border-gray-200 dark:border-gray-800">
+<div class="p-6">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">FixMyRoad Admin</h1>
+</div>
+<nav class="flex-1 px-4 py-2 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="AdminDashBoard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="AdminReports.html">
+<span class="material-symbols-outlined">description</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="AdminAnalytics.html">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg bg-primary text-black" href="Adminsettings.html">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400 text-2xl">account_circle</span>
+<p class="text-sm text-gray-500 dark:text-gray-400">admin@fixmyroad.gov</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<div class="mb-12">
+<h2 class="text-4xl font-bold text-gray-900 dark:text-white">Settings</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-2">Manage your account and preferences.</p>
+</div>
+<div class="space-y-10">
+<div class="bg-white/50 dark:bg-black/20 p-8 rounded-xl shadow-sm">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Profile Information</h3>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+<label class="md:col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300" for="email">Email Address</label>
+<div class="md:col-span-2">
+<input class="block w-full rounded-lg border-gray-300 dark:border-gray-700 bg-background-light dark:bg-background-dark shadow-sm focus:border-primary focus:ring-primary" id="email" name="email" type="email" value="admin@fixmyroad.gov"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+<label class="md:col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300" for="password">Change Password</label>
+<div class="md:col-span-2">
+<button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark focus:ring-primary" type="button">
+                                    Change Password
+                                </button>
+</div>
+</div>
+</div>
+<div class="flex justify-end pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
+<button class="ml-3 inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-lg text-black bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark focus:ring-primary" type="submit">
+                            Update Profile
+                        </button>
+</div>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-8 rounded-xl shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Logout</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">End your current session.</p>
+</div>
+<button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-lg inline-flex items-center gap-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark focus:ring-red-500">
+<span class="material-symbols-outlined">logout</span>
+<a href="AdminLogin.html"><span>Logout</span></a>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<style>
+    input:checked ~ .dot {
+        transform: translateX(100%);
+        background-color: #ffffff;
+    }
+    input:checked + .block {
+        background-color: #f4c652;
+    }
+</style>
+
+</body></html>

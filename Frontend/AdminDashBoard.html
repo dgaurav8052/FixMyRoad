@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FixMyRoad Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f4c652",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-[#1c1917] dark:text-[#e7e5e4]">
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="flex w-64 flex-col bg-background-light dark:bg-background-dark border-r border-black/10 dark:border-white/10">
+            <div class="flex h-16 items-center justify-center border-b border-black/10 dark:border-white/10">
+                <h1 class="text-xl font-bold">FixMyRoad Admin</h1>
+            </div>
+            <nav class="flex-1 space-y-2 p-4">
+                <a class="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2" href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/70 dark:text-white/70 hover:bg-primary/10"
+                    href="#">
+                    <span class="material-symbols-outlined">description</span>
+                    <span class="font-medium">Reports</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/70 dark:text-white/70 hover:bg-primary/10"
+                    href="#">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span class="font-medium">Analytics</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/70 dark:text-white/70 hover:bg-primary/10"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="border-t border-black/10 dark:border-white/10 p-4">
+                <div class="flex items-center gap-3 rounded-lg px-3 py-2">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <!-- User email will be inserted here by JavaScript -->
+                    <span id="user-email" class="font-medium text-sm">loading...</span>
+                </div>
+                 <!-- Logout Button -->
+                <button id="logout-button" class="mt-2 w-full flex items-center justify-center gap-3 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                    <span class="material-symbols-outlined">logout</span>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="mb-8">
+                <h2 class="text-4xl font-bold">Admin Dashboard</h2>
+            </header>
+            <div id="dashboard-content">
+                <!-- This content will be replaced by JS after data loads -->
+                <p>Loading dashboard data...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userEmailElement = document.getElementById('user-email');
+            const dashboardContent = document.getElementById('dashboard-content');
+            const logoutButton = document.getElementById('logout-button');
+
+            const token = localStorage.getItem('supabase_token');
+
+            if (!token) {
+                window.location.href = '/AdminLogin.html';
+                return;
+            }
+
+            async function fetchAdminData() {
+                try {
+                    const response = await fetch('/api/admin/reports', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            localStorage.removeItem('supabase_token');
+                            window.location.href = '/AdminLogin.html';
+                        }
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    renderDashboard(data);
+
+                } catch (error) {
+                    console.error('Failed to fetch admin data:', error);
+                    dashboardContent.innerHTML = `<p class="text-red-500">Error loading dashboard. Please log in again.</p>`;
+                }
+            }
+            
+            function renderDashboard(data) {
+                // Populate user email in the sidebar
+                userEmailElement.textContent = data.admin_user_email || 'Admin User';
+
+                // NOTE: The API endpoint currently only returns a message.
+                // When you update your API to return real report data, you can use it here.
+                // For now, we'll use placeholder values.
+                const newReports = data.newReports || 0;
+                const resolvedIssues = data.resolvedIssues || 0;
+                const pendingIssues = data.pendingIssues || 0;
+                const recentActivities = data.recentActivities || [
+                    { id: '#40', location: 'Janakipuram,Bakshi Ka Talab', type: 'Pothole', status: 'Submitted', date: '2025-09-26' },
+                    
+                ];
+
+
+                // Inject the main dashboard content
+                dashboardContent.innerHTML = `
+                    <section class="mb-8">
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <div class="rounded-xl border border-black/10 dark:border-white/10 p-6">
+                                <p class="text-base font-medium text-black/70 dark:text-white/70">New Reports</p>
+                                <p class="text-3xl font-bold">${newReports}</p>
+                            </div>
+                            <div class="rounded-xl border border-black/10 dark:border-white/10 p-6">
+                                <p class="text-base font-medium text-black/70 dark:text-white/70">Resolved Issues</p>
+                                <p class="text-3xl font-bold">${resolvedIssues}</p>
+                            </div>
+                            <div class="rounded-xl border border-black/10 dark:border-white/10 p-6">
+                                <p class="text-base font-medium text-black/70 dark:text-white/70">Pending Issues</p>
+                                <p class="text-3xl font-bold">${pendingIssues}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3 class="mb-4 text-2xl font-bold">Recent Activity</h3>
+                        <div class="overflow-x-auto rounded-xl border border-black/10 dark:border-white/10">
+                            <table class="min-w-full divide-y divide-black/10 dark:divide-white/10">
+                                <thead>
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black/70 dark:text-white/70">Report ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black/70 dark:text-white/70">Location</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black/70 dark:text-white/70">Issue Type</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black/70 dark:text-white/70">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black/70 dark:text-white/70">Date Reported</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reports-table-body" class="divide-y divide-black/10 dark:divide-white/10">
+                                    <!-- Rows will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                `;
+
+                const tableBody = document.getElementById('reports-table-body');
+                // Clear any existing rows
+                tableBody.innerHTML = ''; 
+
+                // Dynamically create and append table rows from data
+                recentActivities.forEach(activity => {
+                    // Simple status-to-color mapping
+                    const statusColors = {
+                        'Open': 'bg-red-500/20 text-red-800 dark:text-red-300',
+                        'In Progress': 'bg-blue-500/20 text-blue-800 dark:text-blue-300',
+                        'Resolved': 'bg-green-500/20 text-green-800 dark:text-green-300'
+                    };
+
+                    const row = `
+                        <tr>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">${activity.id}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-black/70 dark:text-white/70">${activity.location}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <span class="inline-flex items-center rounded-full bg-primary/20 px-3 py-1 text-sm font-medium">${activity.type}</span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <span class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${statusColors[activity.status] || ''}">${activity.status}</span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-black/70 dark:text-white/70">${activity.date}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('supabase_token');
+                window.location.href = '/AdminLogin.html';
+            });
+
+            fetchAdminData();
+        });
+    </script>
+</body>
+
+</html>
+

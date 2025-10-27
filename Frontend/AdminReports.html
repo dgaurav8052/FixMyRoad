@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FixMyRoad - Report Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f4c652",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221d10",
+                        "foreground-light": "#1a1a1a",
+                        "foreground-dark": "#f0f0f0",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2c281c",
+                        "muted-light": "#6b7280",
+                        "muted-dark": "#9ca3af",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#4b5563",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "0.75rem",
+                        xl: "1rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+        .sidebar-minimized .sidebar-text {
+            display: none;
+        }
+        .sidebar-minimized .sidebar-logo {
+            justify-content: center;
+        }
+        .sidebar-minimized .sidebar-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark flex flex-col transition-all duration-300" id="sidebar">
+<div class="h-16 flex items-center px-6 border-b border-border-light dark:border-border-dark sidebar-logo">
+<h1 class="text-xl font-bold text-foreground-light dark:text-foreground-dark sidebar-text">FixMyRoad Admin</h1>
+<span class="material-symbols-outlined text-2xl text-foreground-light dark:text-foreground-dark hidden">construction</span>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-sm font-medium text-muted-light dark:text-muted-dark hover:bg-primary/10 dark:hover:bg-primary/20" href="AdminDashBoard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="sidebar-text">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-sm font-medium bg-primary/20 dark:bg-primary/30 text-primary" href="AdminReports.html">
+<span class="material-symbols-outlined">description</span>
+<span class="sidebar-text">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-sm font-medium text-muted-light dark:text-muted-dark hover:bg-primary/10 dark:hover:bg-primary/20" href="AdminAnalytics.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="sidebar-text">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-sm font-medium text-muted-light dark:text-muted-dark hover:bg-primary/10 dark:hover:bg-primary/20" href="Adminsettings.html">
+<span class="material-symbols-outlined">settings</span>
+<span class="sidebar-text">Settings</span>
+</a>
+</nav>
+<div class="px-4 py-6 space-y-4 border-t border-border-light dark:border-border-dark sidebar-footer">
+<div class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-sm font-medium text-muted-light dark:text-muted-dark">
+<span class="material-symbols-outlined">account_circle</span> <span class="sidebar-text">admin@fixmyroad.gov</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-hidden">
+<header class="h-16 flex items-center justify-between px-6 border-b border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark flex-shrink-0">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-md hover:bg-primary/10 dark:hover:bg-primary/20" id="sidebar-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div>
+<h2 class="text-2xl font-bold">Reports</h2>
+<p class="text-sm text-muted-light dark:text-muted-dark">Manage all incoming reports and their statuses.</p>
+</div>
+</div>
+</header>
+<div class="p-6 flex-1 overflow-y-auto">
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg border border-border-light dark:border-border-dark mb-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div>
+<label class="text-sm font-medium text-muted-light dark:text-muted-dark" for="date-range">Date Range</label>
+<input class="w-full h-10 mt-1 px-3 rounded-DEFAULT bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" id="date-range" type="date"/>
+</div>
+<div>
+<label class="text-sm font-medium text-muted-light dark:text-muted-dark" for="location-filter">Location</label>
+<input class="w-full h-10 mt-1 px-3 rounded-DEFAULT bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" id="location-filter" placeholder="e.g., Main St, Anytown" type="text"/>
+</div>
+<div>
+<label class="text-sm font-medium text-muted-light dark:text-muted-dark" for="issue-type">Issue Type</label>
+<select class="w-full h-10 mt-1 pl-3 pr-8 rounded-DEFAULT bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" id="issue-type">
+<option>All</option>
+<option>Pothole</option>
+<option>Cracked Sidewalk</option>
+<option>Faded Crosswalk</option>
+<option>Damaged Guardrail</option>
+<option>Blocked Drain</option>
+<option>Missing Sign</option>
+</select>
+</div>
+<div>
+<label class="text-sm font-medium text-muted-light dark:text-muted-dark" for="assignment-status">Status</label>
+<select class="w-full h-10 mt-1 pl-3 pr-8 rounded-DEFAULT bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" id="assignment-status">
+<option>All</option>
+<option>New</option>
+<option>In Progress</option>
+<option>Resolved</option>
+</select>
+</div>
+</div>
+<div class="mt-4 flex justify-end gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-DEFAULT text-sm font-medium border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark hover:bg-primary/10 dark:hover:bg-primary/20">
+<span class="material-symbols-outlined text-base">filter_alt_off</span>
+                            Clear Filters
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-DEFAULT text-sm font-bold bg-primary text-background-dark hover:bg-primary/90">
+<span class="material-symbols-outlined text-base">filter_list</span>
+                            Apply Filters
+                        </button>
+</div>
+</div>
+<div class="mb-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark">search</span>
+<input class="w-full h-12 pl-12 pr-4 rounded-lg bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary text-base" placeholder="Search by keyword, report ID..." type="text"/>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left table-auto">
+<thead class="bg-background-light dark:bg-background-dark text-xs uppercase tracking-wider text-muted-light dark:text-muted-dark">
+<tr>
+<th class="px-6 py-4 font-medium w-24" scope="col">Report ID</th>
+<th class="px-6 py-4 font-medium w-32" scope="col">Issue</th>
+<th class="px-6 py-4 font-medium w-48" scope="col">Location</th>
+<th class="px-6 py-4 font-medium w-28" scope="col">Status</th>
+<th class="px-6 py-4 font-medium min-w-[300px]" scope="col">Description</th>
+<th class="px-6 py-4 font-medium w-36" scope="col">Date Reported</th>
+<th class="px-6 py-4 font-medium text-center w-40" scope="col">Change Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-light dark:divide-border-dark">
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#1</td>
+<td class="px-6 py-4 whitespace-nowrap">Pothole</td>
+<td class="px-6 py-4 whitespace-nowrap">#</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">New</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Large pothole causing traffic backup.">Large pothole causing traffic backup.</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option>In Progress</option>
+<option>Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#2</td>
+<td class="px-6 py-4 whitespace-nowrap">Pothole</td>
+<td class="px-6 py-4 whitespace-nowrap">Lucknow,India,226024</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">In Progress</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Sidewalk uplifted by tree roots.">Sidewalk uplifted by tree roots.</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option selected="">In Progress</option>
+<option>Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#3</td>
+<td class="px-6 py-4 whitespace-nowrap">Pothole</td>
+<td class="px-6 py-4 whitespace-nowrap"></td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200">submitted</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Paint completely worn off at school crossing.">Large Pothole.</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option>In Progress</option>
+<option selected="">Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#4</td>
+<td class="px-6 py-4 whitespace-nowrap">Cracked Pavement</td>
+<td class="px-6 py-4 whitespace-nowrap">Lucknow,India,226013</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">New</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Guardrail damaged from recent accident.">#</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option>In Progress</option>
+<option>Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#5</td>
+<td class="px-6 py-4 whitespace-nowrap">Poor Drainage</td>
+<td class="px-6 py-4 whitespace-nowrap">Jankipuram,Lucknow,India,226024</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">In Progress</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Drain clogged with leaves, causing flooding.">Drain clogged with leaves, causing flooding.</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option selected="">In Progress</option>
+<option>Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-background-light dark:hover:bg-background-dark">
+<td class="px-6 py-4 whitespace-nowrap font-medium">#6</td>
+<td class="px-6 py-4 whitespace-nowrap">Missing Sign</td>
+<td class="px-6 py-4 whitespace-nowrap">Jankipuram,Lucknow,India,226024</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200">Resolved</span>
+</td>
+<td class="px-6 py-4">
+<p class="w-full max-w-sm truncate" title="Stop sign at intersection is missing.">Stop sign at intersection is missing.</p>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">2025-09-25</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block text-left">
+<select class="form-select rounded-md border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>New</option>
+<option>In Progress</option>
+<option selected="">Resolved</option>
+</select>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-border-light dark:border-border-dark flex items-center justify-between flex-wrap gap-4">
+<p class="text-sm text-muted-light dark:text-muted-dark">Showing 1 to 6 of 35 results</p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded-DEFAULT border border-border-light dark:border-border-dark text-sm hover:bg-primary/10 dark:hover:bg-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" disabled="">Previous</button>
+<nav class="flex items-center gap-1">
+<button class="px-3 py-1 rounded-DEFAULT border border-primary bg-primary/20 text-primary text-sm">1</button>
+<button class="px-3 py-1 rounded-DEFAULT border border-border-light dark:border-border-dark text-sm hover:bg-primary/10 dark:hover:bg-primary/20">2</button>
+<button class="px-3 py-1 rounded-DEFAULT border border-border-light dark:border-border-dark text-sm hover:bg-primary/10 dark:hover:bg-primary/20">3</button>
+<span class="px-3 py-1 text-sm">...</span>
+<button class="px-3 py-1 rounded-DEFAULT border border-border-light dark:border-border-dark text-sm hover:bg-primary/10 dark:hover:bg-primary/20">8</button>
+</nav>
+<button class="px-3 py-1 rounded-DEFAULT border border-border-light dark:border-border-dark text-sm hover:bg-primary/10 dark:hover:bg-primary/20">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('w-64');
+            sidebar.classList.toggle('w-20');
+            sidebar.classList.toggle('sidebar-minimized');
+            document.querySelectorAll('.sidebar-text').forEach(el => {
+                el.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.sidebar-logo h1').forEach(el => {
+                el.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.sidebar-logo span').forEach(el => {
+                el.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.sidebar-footer').forEach(el => {
+                el.classList.toggle('hidden');
+            });
+            document.querySelectorAll('#sidebar nav a').forEach(el => {
+                el.classList.toggle('justify-center');
+            })
+        });
+    </script>
+</body></html>

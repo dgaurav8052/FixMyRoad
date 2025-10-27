@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#F4C753", "primary-dark": "#0056b3", "action-green": "#28a745", "action-green-dark": "#1e7e34", "background-light": "#f8f7f6", "background-dark": "#221d10", "surface-light": "#ffffff", "surface-dark": "#495057", "text-light": "#212529", "text-dark": "#f8f9fa", "subtle-text-light": "#6c757d", "subtle-text-dark": "#adb5bd", "border-light": "#dee2e6", "border-dark": "#495057"}, fontFamily: {display: "Public Sans"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+<title>FixMyRoad - Report Road Maintenance Issues</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-4">
+<div class="flex items-center gap-3 text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined text-action-green text-3xl">add_road</span>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]"> FixMyRoad </h2>
+</div>
+<nav class="flex items-center gap-6">
+<a class="text-sm font-medium text-subtle-text-light hover:text-text-light dark:text-subtle-text-dark dark:hover:text-text-dark" href="/static/AboutUs.html">About Us</a>
+<a class="rounded-md bg-primary px-3 py-1.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark" href="AdminLogin.html">Admin</a>
+</nav>
+</header>
+<main class="flex flex-1 justify-center py-8 px-4 sm:px-6 lg:px-8">
+<div class="layout-content-container flex w-full max-w-5xl flex-col gap-8">
+<div class="relative flex min-h-[480px] flex-col items-center justify-center gap-6 overflow-hidden rounded-xl bg-cover bg-center p-8 text-center text-white" style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAvEFoHvy9lt723LLGVUQkpu5Vf0oRph6Y4os1oAJJmRpbRhujPDQZ4_fdzX_wczQFIiwxwtirJV-F0KazrOU_EpFHLeDkUr9CvMkG9YqHmE59gsy9vO61q7PBhjN1UPmxIfUzUg9AmdGqi0VXoEZNw-afEE5TNyIq9iCIuG24H463lMvkjFGCs25exbaf9Bw_7Y2ESCVyOVt9jVhRO1uCe6n6AKJdspEckUYMv_cOrk43mS5aWOSzKaqYfICVJcd0Ul52kg8gFJ-cK");'>
+<div class="flex flex-col gap-4">
+<h1 class="text-4xl font-black leading-tight tracking-tight md:text-5xl"> Report road maintenance issues </h1>
+<p class="mx-auto max-w-2xl text-base font-normal md:text-lg"> Help us keep our roads safe and well-maintained by reporting any problems you encounter. </p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-action-green px-6 py-3 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-action-green-dark">
+<a href="form.html"><span class="truncate">Report a Problem</span></a>
+</button>
+</div>
+<div class="rounded-xl bg-surface-light p-6 shadow-sm dark:bg-surface-dark sm:p-8">
+<h2 class="text-2xl font-bold tracking-tight text-text-light dark:text-text-dark">Our Performance</h2>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">We believe in transparency. Here's a look at our recent performance.</p>
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
+<div class="flex flex-col items-center justify-center rounded-lg bg-background-light p-6 text-center dark:bg-background-dark">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl text-red-500">error</span>
+<span class="text-4xl font-black text-red-500">39</span>
+</div>
+<p class="mt-2 font-medium text-text-light dark:text-text-dark">Problems Reported</p>
+</div>
+<div class="flex flex-col items-center justify-center rounded-lg bg-background-light p-6 text-center dark:bg-background-dark">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl text-action-green">task_alt</span>
+<span class="text-4xl font-black text-action-green">0</span>
+</div>
+<p class="mt-2 font-medium text-text-light dark:text-text-dark">Problems Resolved</p>
+</div>
+<div class="flex flex-col items-center justify-center rounded-lg bg-background-light p-6 text-center dark:bg-background-dark">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl text-amber-500">construction</span>
+<span class="text-4xl font-black text-amber-500">0</span>
+</div>
+<p class="mt-2 font-medium text-text-light dark:text-text-dark">In Progress</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-light dark:bg-surface-dark p-6 shadow-sm sm:p-8">
+<h2 class="text-2xl font-bold tracking-tight text-text-light dark:text-text-dark"> Check a report </h2>
+<div class="mt-6 flex flex-col items-start gap-4 sm:flex-row">
+<label class="flex-1">
+<span class="sr-only">Enter your report ID</span>
+<input class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-3 text-base focus:border-primary focus:ring-primary" placeholder="Enter your report ID"/>
+</label>
+<button class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-primary-dark sm:w-auto">
+<a href="/static/status.html"><span class="truncate">Check Status</span></a>
+</button>
+</div>
+</div>
+<div class="space-y-6">
+<h2 class="text-2xl font-bold tracking-tight text-text-light dark:text-text-dark"> Frequently Asked Questions </h2>
+<div class="space-y-4">
+<details class="group rounded-lg bg-surface-light p-4 dark:bg-surface-dark shadow-sm">
+<summary class="flex cursor-pointer items-center justify-between">
+<span class="font-medium text-text-light dark:text-text-dark">How do I report a pothole?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180"> expand_more </span>
+</summary>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">You can report a pothole by clicking the "Report a Problem" button on our homepage. You'll be asked to provide the location and a description of the issue. A photo is optional but helpful.</p>
+</details>
+<details class="group rounded-lg bg-surface-light p-4 dark:bg-surface-dark shadow-sm">
+<summary class="flex cursor-pointer items-center justify-between">
+<span class="font-medium text-text-light dark:text-text-dark">What kind of road issues can I report?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180"> expand_more </span>
+</summary>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">You can report a variety of issues, including potholes, damaged signs, faded road markings, malfunctioning traffic lights, and debris on the road. If you're unsure, it's better to report it.</p>
+</details>
+<details class="group rounded-lg bg-surface-light p-4 dark:bg-surface-dark shadow-sm">
+<summary class="flex cursor-pointer items-center justify-between">
+<span class="font-medium text-text-light dark:text-text-dark">How long does it take to fix a reported issue?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180"> expand_more </span>
+</summary>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">The time to fix an issue varies depending on its severity and the resources available. Urgent safety hazards are prioritized. You can check the status of your report using the ID provided.</p>
+</details>
+<details class="group rounded-lg bg-surface-light p-4 dark:bg-surface-dark shadow-sm">
+<summary class="flex cursor-pointer items-center justify-between">
+<span class="font-medium text-text-light dark:text-text-dark">How does the whole process work?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180"> expand_more </span>
+</summary>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">Once you report an issue, it's assigned a unique ID. Our team reviews the report, assesses the severity, and schedules it for repair. You can track the status of your report on our website using the ID. You will be notified once the issue is resolved.</p>
+</details>
+<details class="group rounded-lg bg-surface-light p-4 dark:bg-surface-dark shadow-sm">
+<summary class="flex cursor-pointer items-center justify-between">
+<span class="font-medium text-text-light dark:text-text-dark">Do I need to create an account to report an issue?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180"> expand_more </span>
+</summary>
+<p class="mt-2 text-subtle-text-light dark:text-subtle-text-dark">No, you don't need to create an account to report an issue. Instead, you just have to fill out a form with the necessary details about the problem you've encountered.</p>
+</details>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

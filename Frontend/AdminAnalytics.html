@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#f4c652",
+            "background-light": "#f8f7f6",
+            "background-dark": "#221d10",
+          },
+          fontFamily: {
+            display: ["Public Sans"],
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+        },
+      },
+    };
+  </script>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 bg-white/50 dark:bg-black/20 flex flex-col border-r border-gray-200 dark:border-gray-800">
+<div class="p-6">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">FixMyRoad Admin</h1>
+</div>
+<nav class="flex-1 px-4 py-2 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="AdminDashBoard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="AdminReports.html">
+<span class="material-symbols-outlined">description</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg bg-primary text-black" href="AdminAnalytics.html">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="Adminsettings.html">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">person</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 dark:text-gray-400">admin@fixmyroad.gov</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="max-w-7xl mx-auto">
+<div class="mb-8">
+<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Analytics</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-1">Insights into reports, users, and system performance.</p>
+</div>
+<div class="flex justify-end items-center gap-4 mb-6">
+<div class="relative">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">date_range</span>
+<span>Last 30 days</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">filter_list</span>
+<span>Filters</span>
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-white/50 dark:bg-black/20 p-6 rounded-xl shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Reports Over Time</h3>
+<div class="h-80">
+<canvas id="reportsChart"></canvas>
+</div>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-6 rounded-xl shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Report Types</h3>
+<div class="h-80 flex items-center justify-center">
+<canvas id="reportTypesChart"></canvas>
+</div>
+</div>
+<div class="lg:col-span-3 bg-white/50 dark:bg-black/20 p-6 rounded-xl shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Reports by Status</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+<div class="flex flex-col items-center">
+<div class="text-center">
+<p class="text-4xl font-bold text-red-500">35</p>
+<p class="text-gray-500 dark:text-gray-400 mt-1">Reported</p>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-4">
+<div class="bg-red-500 h-2.5 rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-center">
+<p class="text-4xl font-bold text-yellow-400">0</p>
+<p class="text-gray-500 dark:text-gray-400 mt-1">In Progress</p>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-4">
+<div class="bg-yellow-400 h-2.5 rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-center">
+<p class="text-4xl font-bold text-green-500">0</p>
+<p class="text-gray-500 dark:text-gray-400 mt-1">Resolved</p>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-4">
+<div class="bg-green-500 h-2.5 rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+  const reportsChartCtx = document.getElementById('reportsChart').getContext('2d');
+  new Chart(reportsChartCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [{
+        label: '# of Reports',
+        data: [120, 190, 300, 500, 240, 320, 450, 400, 380, 550, 600, 750],
+        borderColor: '#f4c652',
+        backgroundColor: 'rgba(244, 198, 82, 0.2)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(200, 200, 200, 0.1)'
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+  const reportTypesChartCtx = document.getElementById('reportTypesChart').getContext('2d');
+  new Chart(reportTypesChartCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Potholes', 'Cracked Pavement', 'Faded Markings', 'Streetlight Outage', 'Other'],
+      datasets: [{
+        label: 'Report Types',
+        data: [45, 25, 15, 10, 5],
+        backgroundColor: [
+          '#3b82f6',
+          '#f97316',
+          '#10b981',
+          '#eab308',
+          '#6b7280'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 15
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body></html>

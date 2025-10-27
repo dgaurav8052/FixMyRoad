@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FixMyRoad Admin Login</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F4C753",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221d10",
+                        "foreground-light": "#1c1917",
+                        "foreground-dark": "#e7e5e4",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2d1a1a",
+                        "input-light": "#f1f5f9",
+                        "input-dark": "#3d2c2c",
+                        "subtle-light": "#6b7280",
+                        "subtle-dark": "#9ca3af"
+                    },
+                    fontFamily: { display: "Public Sans" },
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        #Login:hover{ background-color: rgba(0,86,179,1); }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/10 dark:border-black/10">
+            <div class="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-foreground-light dark:text-foreground-dark">FixMyRoad</h1>
+                </div>
+            </div>
+        </header>
+        <main class="flex flex-1 items-center justify-center py-12 sm:px-6 lg:px-8">
+            <div class="w-full max-w-md space-y-8">
+                <div class="rounded-xl bg-card-light dark:bg-card-dark p-8 shadow-lg">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-foreground-light dark:text-foreground-dark">Admin Login</h2>
+                        <p class="mt-2 text-sm text-subtle-light dark:text-subtle-dark">Access the road maintenance dashboard</p>
+                    </div>
+                    <div id="error-message" class="mt-4 text-center text-sm text-red-600"></div>
+                    
+                    <form id="login-form" class="mt-8 space-y-6">
+                        <div class="space-y-4 rounded-md">
+                            <div>
+                                <label class="sr-only" for="email-address">Username or Email</label>
+                                <input autocomplete="email" class="relative block w-full appearance-none rounded-lg border-0 bg-input-light dark:bg-input-dark px-3 py-3 text-foreground-light dark:text-foreground-dark placeholder-subtle-light dark:placeholder-subtle-dark focus:z-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm" id="email-address" name="email" placeholder="Username or Email" required="" type="email" />
+                            </div>
+                            <div>
+                                <label class="sr-only" for="password">Password</label>
+                                <input autocomplete="current-password" class="relative block w-full appearance-none rounded-lg border-0 bg-input-light dark:bg-input-dark px-3 py-3 text-foreground-light dark:text-foreground-dark placeholder-subtle-light dark:placeholder-subtle-dark focus:z-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm" id="password" name="password" placeholder="Password" required="" type="password" />
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <div class="text-sm"><a class="font-medium text-primary hover:text-primary/80" href="#">Forgot your password?</a></div>
+                        </div>
+                        <div>
+                            <button id="Login" class="group relative flex w-full justify-center rounded-lg border border-transparent bg-primary py-3 px-4 text-sm font-semibold text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // --- FINAL CORRECTED Supabase Authentication Logic ---
+
+        const SUPABASE_URL = 'https://txmaranldvybwvdmplks.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4bWFyYW5sZHZ5Ynd2ZG1wbGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg2OTI3NzUsImV4cCI6MjA3NDI2ODc3NX0.gso4clIVFlpCgISl_EMECRzBzcKl6RXl3jEYIfqADhs';
+        
+        // **FIX:** Use a different variable name (supabaseClient) to avoid conflict
+        // with the global 'supabase' object from the library.
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('Supabase client initialized.');
+
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); 
+            console.log('Form submission prevented.');
+
+            errorMessage.textContent = '';
+
+            const email = document.getElementById('email-address').value;
+            const password = document.getElementById('password').value;
+            console.log('Attempting to log in with email:', email);
+
+            // **FIX:** Use the new 'supabaseClient' variable here.
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                errorMessage.textContent = error.message;
+                console.error('Login Error:', error);
+            } else {
+                console.log('Login successful!', data);
+                localStorage.setItem('supabase_token', data.session.access_token);
+                window.location.href = '/static/AdminDashBoard.html';
+            }
+        });
+    </script>
+
+</body>
+</html>

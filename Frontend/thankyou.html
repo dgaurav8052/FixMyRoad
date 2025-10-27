@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Submission Confirmation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg">
+
+        <header class="flex justify-between items-center p-5 sm:p-6 border-b border-slate-200">
+            <div class="flex items-center gap-3">
+                 <span class="material-icons text-blue-800 text-3xl">add_road</span>
+                 <span class="text-2xl font-bold text-slate-800">FixMyRoad</span>
+            </div>
+             <div class="flex items-center gap-6 sm:gap-8">
+                <a href="/" class="text-slate-600 hover:text-blue-800 transition-colors text-sm font-medium">New Report</a>
+             </div>
+        </header>
+
+        <main class="text-center py-20 sm:py-24 px-6">
+            <span class="material-icons text-6xl text-green-500">check_circle</span>
+            <h1 class="mt-4 text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Thank you for your report!</h1>
+            <p class="mt-4 max-w-xl mx-auto text-base text-slate-600">
+                Your report from Lucknow has been successfully submitted. You can track its status using the ID below.
+            </p>
+
+            <div class="mt-10 max-w-sm mx-auto">
+                <label for="report-id" class="block text-left text-sm font-medium text-slate-700 mb-2">Report ID</label>
+                <input 
+                    type="text" 
+                    id="report-id" 
+                    name="report-id" 
+                    value="Generating..." 
+                    readonly 
+                    class="w-full cursor-text rounded-md border-slate-300 bg-slate-100 p-3 font-mono tracking-wider text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300"
+                >
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button id="track-status-btn" type="button" class="w-full sm:w-auto rounded-md bg-blue-800 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+                    Track Your Status
+                </button>
+                <a href="/" class="w-full sm:w-auto rounded-md bg-white px-10 py-3 text-sm font-semibold text-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50">
+                    Report Another Issue
+                </a>
+            </div>
+
+            <p class="mt-10 text-sm text-slate-500">
+                You will also receive an email notification with your report details if an address was provided.
+            </p>
+            
+        </main>
+
+    </div>
+
+    <script src="/static/thankyou.js"></script>
+
+</body>
+</html>
