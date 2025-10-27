@@ -59,9 +59,9 @@ Fix-My-Road/
 
 Team – Bit Coders
 
-Mohd Faizan 
-Gaurav Dwivedi
-Anshi
-Sharadveer Singh
-Divyanshu Yadav
+- Gaurav Dwivedi
+- Mohd Faizan 
+- Anshi
+- Sharadveer Singh
+- Divyanshu Yadav
 
